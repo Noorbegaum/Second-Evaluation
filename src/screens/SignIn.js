@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {InputField} from '../assets/components/InputField';
-import {PasswordInput} from '../assets/components/InputField';
-import ButtonField from '../assets/components/ButtonField';
+import {InputField} from '../components/InputField';
+import {PasswordInput} from '../components/InputField';
+import {ButtonField} from '../components/ButtonField';
 import LinearGradient from 'react-native-linear-gradient';
 const SignIn = ({navigation}) => {
   const handlePress = () => {
