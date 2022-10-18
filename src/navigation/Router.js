@@ -7,7 +7,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import EditSite from '../screens/EditSite.js';
 import SiteDetails from '../screens/SiteDetails.js';
-import {Button, View, StyleSheet, Image} from 'react-native';
+import {Button, View, StyleSheet, Image, Pressable,Text } from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
@@ -60,7 +60,9 @@ function Router() {
         <Stack.Screen
           name="Edit Site"
           component={EditSite}
+          
           options={{
+            headerBackTitleVisible: false,
             headerStyle: {
               backgroundColor: '#0E85FF',
             },
@@ -73,17 +75,14 @@ function Router() {
           name="Site Details"
           component={SiteDetails}
           options={({navigation}) => ({
-            title: 'Home',
             headerStyle: {
               backgroundColor: '#0E85FF',
             },
             headerTintColor: '#FFFFFF',
             headerRight: () => (
-              <Button
+              <Pressable
                 onPress={() => navigation.navigate('Edit Site')}
-                title="Edit"
-                color="white"
-              />
+              ><Text style={styles.editText}>Edit</Text></Pressable>
             ),
           })}
         />
@@ -112,12 +111,19 @@ const styles = StyleSheet.create({
   headerIcons: {
     alignItems: 'center',
     flexDirection: 'row',
+ 
   },
   headerMenu: {
     alignItems: 'center',
     flexDirection: 'row',
+
   },
   content: {
     marginLeft: 25,
   },
+  editText:{
+    color: '#FFFFFF',
+    fontWeight:'bold',
+    fontSize:20,
+  }
 });

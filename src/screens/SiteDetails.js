@@ -1,17 +1,18 @@
 import React, {Component} from 'react';
 import {SafeAreaView, View, StyleSheet, ScrollView} from 'react-native';
-import {ButtonField} from '../components/ButtonField';
-import {InputField} from '../components/InputField';
 import {CustomPassInput} from '../components/InputField';
 import {CustomInput} from '../components/InputField';
 import {CustomMultilineInput} from '../components/InputField';
 import { CustomButtonField } from '../components/ButtonField';
+import { useRoute } from '@react-navigation/native';
+
 
 const SiteDetails = () => {
+  const route=useRoute();
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
-        <CustomInput text="URL" multiline={false} />
+        <CustomInput text="URL" multiline={false} value={route.params.item.link}/>
         <CustomInput text="Site Name" multiline={false} />
         <CustomPassInput
           text="Select/Folder"
@@ -23,6 +24,7 @@ const SiteDetails = () => {
           source={require('../assets/images/eye_on.png')}
         />
         <CustomMultilineInput text="Notes" multiline={true} />
+
       </ScrollView>
       <View style={styles.buttonContainer}>
         <CustomButtonField text="Reset" />

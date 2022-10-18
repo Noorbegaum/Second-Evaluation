@@ -7,36 +7,42 @@ import {
   Image,
   Pressable,
 } from 'react-native';
-import EditSite from '../screens/EditSite';
+
 const DATA = [
   {
     key: 'Facebook',
     source: require('../assets/images/Bitmap.png'),
     link: 'www.facebook.com',
+    password: 'facebook',
+    notes:'Facebook Notes'
   },
   {
     key: 'YouTube',
     source: require('../assets/images/YouTube.png'),
     link: 'www.youtube.com/ssmraok',
+    password: 'youtube',
+    notes:'Youtube Notes'
   },
   {
     key: 'Twitter',
     source: require('../assets/images/Twitter.png'),
     link: 'www.twitter.com',
+    password: 'twitter',
+    notes:'Facebook Notes'
   },
   {
     key: 'Instagram',
     source: require('../assets/images/Insta.png'),
     link: 'www.instagram.com',
+    password: 'instagram',
+    notes:'Instagram Notes'
   },
 
 ];
 
 const SiteList = ({navigation}) => {
 
-  const handlePress =()=>{
-    navigation.navigate("Site Details")
-  }
+  
 
   return (
     <View style={styles.container}>
@@ -44,7 +50,7 @@ const SiteList = ({navigation}) => {
       
         data={DATA}
         renderItem={({item}) => (
-          <Pressable onPress={handlePress}>
+          <Pressable onPress={()=>{navigation.navigate("Site Details",{item})}}>
           <View style={styles.itemContainer} >
             <View>
               <View style={styles.topItem}>

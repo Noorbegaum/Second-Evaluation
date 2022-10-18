@@ -7,6 +7,7 @@ import {CustomInput} from '../components/InputField';
 import {CustomMultilineInput} from '../components/InputField';
 import { CustomButtonField } from '../components/ButtonField';
 
+
 const AddSite = () => {
   return (
     <SafeAreaView style={styles.container}>
@@ -23,6 +24,7 @@ const AddSite = () => {
           source={require('../assets/images/eye_on.png')}
         />
         <CustomMultilineInput text="Notes" multiline={true} />
+       
       </ScrollView>
       <View style={styles.buttonContainer}>
         <CustomButtonField text="Reset" />

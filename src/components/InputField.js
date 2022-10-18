@@ -37,13 +37,14 @@ export const CustomPassInput = ({text, source}) => {
   );
 };
 
-export const CustomInput = ({text,multiline}) => {
+export const CustomInput = ({text,multiline,value}) => {
   return (
     <View>
     <Text style={styles.text}>{text}</Text>
     <TextInput
       style={styles.customInput}
       multiline={multiline}
+      value={value}
     />
     </View>
   );
@@ -60,6 +61,8 @@ export const CustomMultilineInput = ({text,multiline}) => {
     </View>
   );
 };
+
+
 
 const styles = StyleSheet.create({
   textInput: {
@@ -110,7 +113,6 @@ const styles = StyleSheet.create({
       borderWidth: 0.5,
       borderColor: '#D7D7D7',
       borderRadius: 5,
-      fontWeight: 'bold',
       fontSize: 18,
       margin: 15,
   },

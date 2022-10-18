@@ -4,6 +4,7 @@ import {InputField} from '../components/InputField';
 import {PasswordInput} from '../components/InputField';
 import {ButtonField} from '../components/ButtonField';
 import LinearGradient from 'react-native-linear-gradient';
+import { PasswordComponent } from '../components/InputField';
 const SignUp = ({navigation}) => {
   const handlePress = () => {
     alert('Congrats!!! Success');
@@ -21,6 +22,7 @@ const SignUp = ({navigation}) => {
             placeholder="Re-Enter 4 digit MPin"
             source={require('../assets/images/eye_on.png')}
           />
+         
         </View>
         <ButtonField text="SIGN IN" onPress={handlePress} />
     </LinearGradient>

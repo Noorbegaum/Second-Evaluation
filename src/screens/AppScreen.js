@@ -1,13 +1,23 @@
 import React from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Image, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 import SiteList from '../components/SiteList';
 
-
 const AppScreen = ({navigation}) => {
-
   return (
     <SafeAreaView style={styles.container}>
-  
+      <StatusBar
+        barStyle="dark-content"
+        hidden={false}
+        backgroundColor="#0E85FF"
+      />
       <View style={styles.subHeader}>
         <View>
           <Text style={styles.sites}>Sites</Text>
@@ -24,10 +34,18 @@ const AppScreen = ({navigation}) => {
           />
         </View>
       </View>
-       <SiteList navigation={navigation}/>
-    <TouchableOpacity title="add" style={styles.button} onPress={()=>{navigation.navigate('Add Site')}}>
-      <Image source={require('../assets/images/add_btn.png')} style={styles.addButton}/>
-    </TouchableOpacity>
+      <SiteList navigation={navigation} />
+      <TouchableOpacity
+        title="add"
+        style={styles.button}
+        onPress={() => {
+          navigation.navigate('Add Site');
+        }}>
+        <Image
+          source={require('../assets/images/add_btn.png')}
+          style={styles.addButton}
+        />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -37,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FAFAFA',
   },
-  
+
   subHeader: {
     flexDirection: 'row',
     backgrounColor: '#FAFAFA',
@@ -92,23 +110,20 @@ const styles = StyleSheet.create({
     width: 11.2,
     margin: 10,
   },
-  button:{
-    position:'absolute',
-    width:50,
-    height:50,
-    alignItems:'center',
-    justifyContent:'center',
-    right:20,
-    bottom:150,
+  button: {
+    position: 'absolute',
+    width: 50,
+    height: 50,
+    alignItems: 'center',
+    justifyContent: 'center',
+    right: 20,
+    bottom: 150,
   },
-  addButton:{
-    resizeMode:'contain',
-    width:48,
-    height:48
-  }
-
-
- 
+  addButton: {
+    resizeMode: 'contain',
+    width: 48,
+    height: 48,
+  },
 });
 
 export default AppScreen;
