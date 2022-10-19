@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -9,8 +9,13 @@ import {
   StatusBar,
 } from 'react-native';
 import SiteList from '../components/SiteList';
-
+import SubHeaderField from '../components/SubHeaderField';
+import Header from '../components/Header';
+import SearchField from '../components/SearchField';
+import Toast from 'react-native-simple-toast'
 const AppScreen = ({navigation}) => {
+  const [clicked, setClicked] = useState(false);
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -18,22 +23,11 @@ const AppScreen = ({navigation}) => {
         hidden={false}
         backgroundColor="#0E85FF"
       />
-      <View style={styles.subHeader}>
-        <View>
-          <Text style={styles.sites}>Sites</Text>
-          <View style={styles.borderBottom}></View>
-        </View>
-        <View style={styles.rightsubHeader}>
-          <Text style={styles.socialMedia}>Social Media</Text>
-          <View style={styles.oval}>
-            <Text style={styles.number}>07</Text>
-          </View>
-          <Image
-            source={require('../assets/images/PathCopy.png')}
-            style={styles.dropdown}
-          />
-        </View>
-      </View>
+      <Header onPress={() => setClicked(!clicked)}/>
+      {clicked ? (
+          <SearchField />
+        ) : (
+      <SubHeaderField/>)}
       <SiteList navigation={navigation} />
       <TouchableOpacity
         title="add"
@@ -117,7 +111,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     right: 20,
-    bottom: 150,
+    bottom: 50,
   },
   addButton: {
     resizeMode: 'contain',

@@ -1,35 +1,99 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {SafeAreaView, View, StyleSheet, ScrollView} from 'react-native';
-import {ButtonField} from '../components/ButtonField';
-import {InputField} from '../components/InputField';
 import {CustomPassInput} from '../components/InputField';
 import {CustomInput} from '../components/InputField';
 import {CustomMultilineInput} from '../components/InputField';
-import { CustomButtonField } from '../components/ButtonField';
+import {CustomButtonField} from '../components/ButtonField';
+import {Formik} from 'formik';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useDispatch} from 'react-redux';
+import {add} from '../redux/ManagerSlice';
+import Toast from 'react-native-simple-toast';
 
+const AddSite = ({navigation}) => {
+  const source = require('../assets/images/Bitmap.png');
+  const dispatch = useDispatch();
 
-const AddSite = () => {
+  const handleReset=()=>{
+    
+  }
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <CustomInput text="URL" multiline={false} />
-        <CustomInput text="Site Name" multiline={false} />
-        <CustomPassInput
-          text="Select/Folder"
-          source={require('../assets/images/PathCopy.png')}
-        />
-        <CustomInput text="User Name" multiline={false} />
-        <CustomPassInput
-          text="Site Password"
-          source={require('../assets/images/eye_on.png')}
-        />
-        <CustomMultilineInput text="Notes" multiline={true} />
-       
-      </ScrollView>
-      <View style={styles.buttonContainer}>
-        <CustomButtonField text="Reset" />
-        <CustomButtonField text="Save" />
-      </View>
+      <Formik
+        initialValues={{
+          url: '',
+          sitename: '',
+          folder: '',
+          username: '',
+          password: '',
+          notes: '',
+          source: source,
+        }}
+        onSubmit={async values => {
+          dispatch(add(values));
+          console.log(values);
+          try {
+            const jsonValue = JSON.stringify(values);
+            await AsyncStorage.setItem('values.url', jsonValue);
+
+            Toast.show('Successfully Added');
+            navigation.navigate('AppScreen');
+          } catch (err) {
+            console.log(err);
+          }
+        }}>
+        {({handleChange, handleBlur, handleSubmit, values}) => (
+          <>
+            <ScrollView>
+              <CustomInput
+                text="URL"
+                multiline={false}
+                name="url"
+                onChangeText={handleChange('url')}
+                onBlur={handleBlur('url')}
+                value={values.url}
+              />
+              <CustomInput
+                text="Site Name"
+                multiline={false}
+                name="sitename"
+                onChangeText={handleChange('sitename')}
+                onBlur={handleBlur('sitename')}
+                value={values.sitename}
+              />
+              <CustomPassInput
+                text="Select/Folder"
+                source={require('../assets/images/PathCopy.png')}
+                name="folder"
+                onChangeText={handleChange('folder')}
+                onBlur={handleBlur('folder')}
+                value={values.folder}
+              />
+              <CustomInput
+                text="User Name"
+                multiline={false}
+                name="username"
+                onChangeText={handleChange('username')}
+                onBlur={handleBlur('username')}
+                value={values.username}
+              />
+              <CustomPassInput
+                text="Site Password"
+                source={require('../assets/images/eye_on.png')}
+                name="password"
+                onChangeText={handleChange('password')}
+                onBlur={handleBlur('password')}
+                value={values.password}
+              />
+              <CustomMultilineInput text="Notes" multiline={true} />
+            </ScrollView>
+            <View style={styles.buttonContainer}>
+              <CustomButtonField text="Reset" onPress={handleReset}/>
+              <CustomButtonField text="Save" onPress={handleSubmit} />
+            </View>
+          </>
+        )}
+      </Formik>
     </SafeAreaView>
   );
 };

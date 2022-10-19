@@ -1,68 +1,93 @@
 import React from 'react';
 import {TextInput, StyleSheet, View, Image, Text} from 'react-native';
 
-export const InputField = ({placeholder, keyboardType}) => {
+export const InputField = props => {
   return (
     <TextInput
-      placeholder={placeholder}
+      name={props.name}
+      placeholder={props.placeholder}
+      placeholderTextColor={props.placeholderTextColor}
+      onChangeText={props.onChangeText}
+      onBlur={props.onBlur}
       style={styles.textInput}
-      keyboardType={keyboardType}
+      keyboardType={props.keyboardType}
+      value={props.value}
     />
   );
 };
 
-export const PasswordInput = ({placeholder, source}) => {
+export const PasswordInput = props => {
   return (
     <View style={styles.passwordContainer}>
       <TextInput
-        placeholder={placeholder}
-        keyboardType="numeric"
+        name={props.name}
+        placeholder={props.placeholder}
+        onChangeText={props.onChangeText}
+        placeholderTextColor={props.placeholderTextColor}
+        onBlur={props.onBlur}
+        value={props.value}
+        keyboardType={props.keyboardType}
+        secureTextEntry
         style={styles.passInput}
       />
-      <Image source={source} />
+      <Image source={props.source} />
     </View>
   );
 };
-export const CustomPassInput = ({text, source}) => {
+export const CustomPassInput = props => {
   return (
     <View>
-    <Text style={styles.text}>{text}</Text>
-    <View style={styles.customPasswordContainer}>     
+      <Text style={styles.text}>{props.text}</Text>
+      <View style={styles.customPasswordContainer}>
+        <TextInput
+          style={styles.customPassInput}
+          value={props.value}
+          onChangeText={props.onChangeText}
+          name={props.name}
+          onBlur={props.onBlur}
+          keyboardType={props.keyboardType}
+        />
+        <Image source={props.source} />
+      </View>
+    </View>
+  );
+};
+
+export const CustomInput = props => {
+  return (
+    <View>
+      <Text style={styles.text}>{props.text}</Text>
       <TextInput
-        style={styles.customPassInput}
+        style={styles.customInput}
+        multiline={props.multiline}
+        value={props.value}
+        onChangeText={props.onChangeText}
+        name={props.name}
+        onBlur={props.onBlur}
+        keyboardType={props.keyboardType}
       />
-      <Image source={source} />
-    </View>
     </View>
   );
 };
 
-export const CustomInput = ({text,multiline,value}) => {
+export const CustomMultilineInput = ({
+  text,
+  multiline,
+  value,
+  onChangeText,
+}) => {
   return (
     <View>
-    <Text style={styles.text}>{text}</Text>
-    <TextInput
-      style={styles.customInput}
-      multiline={multiline}
-      value={value}
-    />
+      <Text style={styles.text}>{text}</Text>
+      <TextInput
+        style={styles.customMultilineInput}
+        multiline={multiline}
+        value={value}
+        onChangeText={onChangeText}
+      />
     </View>
   );
 };
-
-export const CustomMultilineInput = ({text,multiline}) => {
-  return (
-    <View>
-    <Text style={styles.text}>{text}</Text>
-    <TextInput
-      style={styles.customMultilineInput}
-      multiline={multiline}
-    />
-    </View>
-  );
-};
-
-
 
 const styles = StyleSheet.create({
   textInput: {
@@ -72,14 +97,14 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 5,
-    fontWeight: 'bold',
+
     fontSize: 18,
     margin: 15,
   },
   passwordContainer: {
     flexDirection: 'row',
     backgroundColor: 'white',
-    alignItems:'center',
+    alignItems: 'center',
     height: 54,
     width: '85%',
     paddingHorizontal: 20,
@@ -88,7 +113,6 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   passInput: {
-    fontWeight: 'bold',
     fontSize: 18,
     width: '90%',
   },
@@ -104,29 +128,29 @@ const styles = StyleSheet.create({
     margin: 15,
     borderColor: '#D7D7D7',
   },
-  customInput:{
-      height: 54,
-      width: '85%',
-      paddingHorizontal: 20,
-      alignSelf: 'center',
-      backgroundColor: '#F5F7FB',
-      borderWidth: 0.5,
-      borderColor: '#D7D7D7',
-      borderRadius: 5,
-      fontSize: 18,
-      margin: 15,
+  customInput: {
+    height: 54,
+    width: '85%',
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    backgroundColor: '#F5F7FB',
+    borderWidth: 0.5,
+    borderColor: '#D7D7D7',
+    borderRadius: 5,
+    fontSize: 18,
+    margin: 15,
   },
-  text:{
-    marginHorizontal:30,
-    color:'#949CA5',
-    fontSize:18,
-    marginTop:10,
+  text: {
+    marginHorizontal: 30,
+    color: '#949CA5',
+    fontSize: 18,
+    marginTop: 10,
   },
   customPasswordContainer: {
     flexDirection: 'row',
     backgroundColor: '#F5F7FB',
-    alignItems:'center',
-    alignSelf:'center',
+    alignItems: 'center',
+    alignSelf: 'center',
     height: 54,
     width: '85%',
     paddingHorizontal: 20,
@@ -136,11 +160,10 @@ const styles = StyleSheet.create({
     margin: 15,
   },
   customPassInput: {
-    fontWeight: 'bold',
     fontSize: 18,
     width: '90%',
   },
-  customMultilineInput:{
+  customMultilineInput: {
     height: 95,
     width: '85%',
     paddingHorizontal: 20,
@@ -149,8 +172,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: '#D7D7D7',
     borderRadius: 5,
-    fontWeight: 'bold',
     fontSize: 18,
     margin: 15,
-},
+  },
 });

@@ -1,73 +1,37 @@
 import React from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  Image,
-  Pressable,
-} from 'react-native';
+import {View, FlatList, StyleSheet, Text, Image, Pressable} from 'react-native';
+import {useSelector} from 'react-redux';
 
-const DATA = [
-  {
-    key: 'Facebook',
-    source: require('../assets/images/Bitmap.png'),
-    link: 'www.facebook.com',
-    password: 'facebook',
-    notes:'Facebook Notes'
-  },
-  {
-    key: 'YouTube',
-    source: require('../assets/images/YouTube.png'),
-    link: 'www.youtube.com/ssmraok',
-    password: 'youtube',
-    notes:'Youtube Notes'
-  },
-  {
-    key: 'Twitter',
-    source: require('../assets/images/Twitter.png'),
-    link: 'www.twitter.com',
-    password: 'twitter',
-    notes:'Facebook Notes'
-  },
-  {
-    key: 'Instagram',
-    source: require('../assets/images/Insta.png'),
-    link: 'www.instagram.com',
-    password: 'instagram',
-    notes:'Instagram Notes'
-  },
-
-];
 
 const SiteList = ({navigation}) => {
-
-  
+  const value = useSelector(state => state.sitedata.value);
 
   return (
     <View style={styles.container}>
       <FlatList
-      
-        data={DATA}
+        data={value}
         renderItem={({item}) => (
-          <Pressable onPress={()=>{navigation.navigate("Site Details",{item})}}>
-          <View style={styles.itemContainer} >
-            <View>
-              <View style={styles.topItem}>
-                <Image source={item.source}></Image>
-                <View>
-                  <Text style={styles.socialText}>{item.key}</Text>
+          <Pressable
+            onPress={() => {
+              navigation.navigate('Site Details', {item});
+            }}>
+            <View style={styles.itemContainer}>
+              <View>
+                <View style={styles.topItem}>
+                  <Image source={item.source}></Image>
                   <View>
-                    <Text style={styles.copyText}>Copy Password</Text>
+                    <Text style={styles.socialText}>{item.sitename}</Text>
+                    <View>
+                      <Text style={styles.copyText}>Copy Password</Text>
+                    </View>
                   </View>
                 </View>
-              </View>
 
-              <View style={styles.bottomItem}>
-                <Text style={styles.link}>{item.link}</Text>
+                <View style={styles.bottomItem}>
+                  <Text style={styles.link}>{item.url}</Text>
+                </View>
               </View>
             </View>
-          </View>
           </Pressable>
         )}
       />
@@ -79,13 +43,11 @@ export default SiteList;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  
   },
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
-  
   },
   itemContainer: {
     height: 103.5,
@@ -96,7 +58,7 @@ const styles = StyleSheet.create({
     shadowColor: '#3C4857',
     shadowOpacity: 0.2,
     shadowRadius: 2,
-    marginBottom:12,
+    marginBottom: 12,
   },
   topItem: {
     paddingHorizontal: 20,
@@ -109,9 +71,9 @@ const styles = StyleSheet.create({
   bottomItem: {
     alignItems: 'center',
     paddingVertical: 10,
-    backgroundColor:'#FAFAFA',
-    borderBottomLeftRadius:10,
-    borderBottomRightRadius:10
+    backgroundColor: '#FAFAFA',
+    borderBottomLeftRadius: 10,
+    borderBottomRightRadius: 10,
   },
   socialText: {
     color: '#0E85FF',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthScreen from '../screens/AuthScreen.js';
 import AppScreen from '../screens/AppScreen.js';
 import AddSite from '../screens/AddSite.js';
@@ -7,11 +7,20 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import EditSite from '../screens/EditSite.js';
 import SiteDetails from '../screens/SiteDetails.js';
-import {Button, View, StyleSheet, Image, Pressable,Text } from 'react-native';
+import {View, StyleSheet, Image, Pressable, Text} from 'react-native';
+import RenderButton from '../components/RenderButton.js';
+import SubHeaderField from '../components/SubHeaderField.js';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 function Router() {
+
+  // const jsonValue = AsyncStorage.getItem('values.url');
+  // const  parseValue = JSON.parse(jsonValue);
+  // console.log("hiiiiiii",JSON.parse(jsonValue))
+
   return (
     <NavigationContainer onReady={() => RNBootSplash.hide()}>
       <Stack.Navigator>
@@ -23,44 +32,13 @@ function Router() {
         <Stack.Screen
           name="AppScreen"
           component={AppScreen}
-          options={({navigation}) => ({
-            title: ' ',
-            headerStyle: {
-              backgroundColor: '#0E85FF',
-            },
-            headerTintColor: '#FFFFFF',
-            headerBackTitleVisible: false,
-            headerLeft: () => (
-              <View style={styles.headerMenu}>
-                <Image source={require('../assets/images/burger_menu.png')} />
-                <Image
-                  source={require('../assets/images/PASSMANAGER.png')}
-                  style={styles.content}
-                />
-              </View>
-            ),
-            headerRight: () => (
-              <View style={styles.headerIcons}>
-                <Image
-                  source={require('../assets/images/search.png')}
-                  style={styles.contentIcon}
-                />
-                <Image
-                  source={require('../assets/images/sync_icn.png')}
-                  style={styles.contentIcon}
-                />
-                <Image
-                  source={require('../assets/images/profile.png')}
-                  style={styles.contentIcon}
-                />
-              </View>
-            ),
-          })}
+          options={{
+            headerShown: false,    
+          }}
         />
         <Stack.Screen
           name="Edit Site"
           component={EditSite}
-          
           options={{
             headerBackTitleVisible: false,
             headerStyle: {
@@ -74,17 +52,9 @@ function Router() {
         <Stack.Screen
           name="Site Details"
           component={SiteDetails}
-          options={({navigation}) => ({
-            headerStyle: {
-              backgroundColor: '#0E85FF',
-            },
-            headerTintColor: '#FFFFFF',
-            headerRight: () => (
-              <Pressable
-                onPress={() => navigation.navigate('Edit Site')}
-              ><Text style={styles.editText}>Edit</Text></Pressable>
-            ),
-          })}
+          options={{
+            headerShown: false,    
+          }}
         />
         <Stack.Screen
           name="Add Site"
@@ -111,19 +81,17 @@ const styles = StyleSheet.create({
   headerIcons: {
     alignItems: 'center',
     flexDirection: 'row',
- 
   },
   headerMenu: {
     alignItems: 'center',
     flexDirection: 'row',
-
   },
   content: {
     marginLeft: 25,
   },
-  editText:{
+  editText: {
     color: '#FFFFFF',
-    fontWeight:'bold',
-    fontSize:20,
-  }
+    fontWeight: 'bold',
+    fontSize: 20,
+  },
 });
