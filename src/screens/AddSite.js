@@ -14,9 +14,7 @@ const AddSite = ({navigation}) => {
   const source = require('../assets/images/Bitmap.png');
   const dispatch = useDispatch();
 
-  const handleReset=()=>{
-    
-  }
+  const handleReset = () => {};
   return (
     <SafeAreaView style={styles.container}>
       <Formik
@@ -88,7 +86,7 @@ const AddSite = ({navigation}) => {
               <CustomMultilineInput text="Notes" multiline={true} />
             </ScrollView>
             <View style={styles.buttonContainer}>
-              <CustomButtonField text="Reset" onPress={handleReset}/>
+              <CustomButtonField text="Reset" onPress={handleReset} />
               <CustomButtonField text="Save" onPress={handleSubmit} />
             </View>
           </>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import AuthScreen from '../screens/AuthScreen.js';
 import AppScreen from '../screens/AppScreen.js';
 import AddSite from '../screens/AddSite.js';
@@ -7,20 +7,11 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import EditSite from '../screens/EditSite.js';
 import SiteDetails from '../screens/SiteDetails.js';
-import {View, StyleSheet, Image, Pressable, Text} from 'react-native';
-import RenderButton from '../components/RenderButton.js';
-import SubHeaderField from '../components/SubHeaderField.js';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useSelector } from 'react-redux';
+import {StyleSheet} from 'react-native';
 
 const Stack = createNativeStackNavigator();
 
 function Router() {
-
-  // const jsonValue = AsyncStorage.getItem('values.url');
-  // const  parseValue = JSON.parse(jsonValue);
-  // console.log("hiiiiiii",JSON.parse(jsonValue))
-
   return (
     <NavigationContainer onReady={() => RNBootSplash.hide()}>
       <Stack.Navigator>
@@ -33,7 +24,7 @@ function Router() {
           name="AppScreen"
           component={AppScreen}
           options={{
-            headerShown: false,    
+            headerShown: false,
           }}
         />
         <Stack.Screen
@@ -53,7 +44,7 @@ function Router() {
           name="Site Details"
           component={SiteDetails}
           options={{
-            headerShown: false,    
+            headerShown: false,
           }}
         />
         <Stack.Screen

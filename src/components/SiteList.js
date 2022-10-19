@@ -2,7 +2,6 @@ import React from 'react';
 import {View, FlatList, StyleSheet, Text, Image, Pressable} from 'react-native';
 import {useSelector} from 'react-redux';
 
-
 const SiteList = ({navigation}) => {
   const value = useSelector(state => state.sitedata.value);
 

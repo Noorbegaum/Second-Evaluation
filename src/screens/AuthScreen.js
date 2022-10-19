@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, SafeAreaView, Text, StyleSheet, Image} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
+import {View, StyleSheet, Image} from 'react-native';
 import TabNav from '../navigation/TabNav';
 
 const AuthScreen = () => {

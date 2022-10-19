@@ -26,7 +26,6 @@ const SignUp = ({navigation}) => {
       .required('Confirm mPin is required'),
   });
 
-
   return (
     <LinearGradient colors={['#20BBFF', '#0E85FF']} style={styles.container}>
       <Formik

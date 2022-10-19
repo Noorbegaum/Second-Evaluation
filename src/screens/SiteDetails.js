@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {SafeAreaView, View, StyleSheet, ScrollView, Text, Pressable} from 'react-native';
+import {
+  SafeAreaView,
+  View,
+  StyleSheet,
+  ScrollView,
+  Text,
+  Pressable,
+} from 'react-native';
 import {CustomPassInput} from '../components/InputField';
 import {CustomInput} from '../components/InputField';
 import {CustomMultilineInput} from '../components/InputField';
@@ -7,18 +14,18 @@ import {Formik} from 'formik';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {add} from '../redux/ManagerSlice';
-import { useRoute } from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const AddSite = ({navigation}) => {
   const route = useRoute();
   const source = require('../assets/images/Bitmap.png');
   const dispatch = useDispatch();
-  const [siteDetails,setSite]=useState(route.params.item);
+  const [siteDetails, setSite] = useState(route.params.item);
 
   return (
     <SafeAreaView style={styles.container}>
- <View style={styles.topbar}>
+      <View style={styles.topbar}>
         <Icon
           name="arrowleft"
           size={25}
@@ -102,7 +109,11 @@ const AddSite = ({navigation}) => {
                 onBlur={handleBlur('password')}
                 value={route.params.item.password}
               />
-              <CustomMultilineInput text="Notes" multiline={true} value={route.params.item.notes}/>
+              <CustomMultilineInput
+                text="Notes"
+                multiline={true}
+                value={route.params.item.notes}
+              />
             </ScrollView>
           </>
         )}

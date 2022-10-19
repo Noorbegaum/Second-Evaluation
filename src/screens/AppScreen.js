@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
   SafeAreaView,
   Image,
@@ -12,7 +10,7 @@ import SiteList from '../components/SiteList';
 import SubHeaderField from '../components/SubHeaderField';
 import Header from '../components/Header';
 import SearchField from '../components/SearchField';
-import Toast from 'react-native-simple-toast'
+
 const AppScreen = ({navigation}) => {
   const [clicked, setClicked] = useState(false);
 
@@ -23,11 +21,8 @@ const AppScreen = ({navigation}) => {
         hidden={false}
         backgroundColor="#0E85FF"
       />
-      <Header onPress={() => setClicked(!clicked)}/>
-      {clicked ? (
-          <SearchField />
-        ) : (
-      <SubHeaderField/>)}
+      <Header onPress={() => setClicked(!clicked)} />
+      {clicked ? <SearchField /> : <SubHeaderField />}
       <SiteList navigation={navigation} />
       <TouchableOpacity
         title="add"

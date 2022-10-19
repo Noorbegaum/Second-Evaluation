@@ -10,8 +10,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
 
 const SignIn = ({navigation}) => {
-
-
   const signinValidationSchema = yup.object().shape({
     phoneNumber: yup
       .string()
@@ -23,7 +21,6 @@ const SignIn = ({navigation}) => {
       .max(4, ({max}) => `mPin must be${max} of characters`)
       .required('MPin is required'),
   });
-
 
   return (
     <LinearGradient colors={['#20BBFF', '#0E85FF']} style={styles.container}>
@@ -61,14 +58,14 @@ const SignIn = ({navigation}) => {
         }) => (
           <>
             <View style={styles.inputContainer}>
-              <InputField 
-              name="phoneNumber"
-              placeholder="Mobile Number" 
-              placeholderTextColor={'grey'}
-              onChangeText={handleChange('phoneNumber')}
-              onBlur={handleBlur('phoneNumber')}
-              keyboardType="number-pad"
-              value={values.phoneNumber}
+              <InputField
+                name="phoneNumber"
+                placeholder="Mobile Number"
+                placeholderTextColor={'grey'}
+                onChangeText={handleChange('phoneNumber')}
+                onBlur={handleBlur('phoneNumber')}
+                keyboardType="number-pad"
+                value={values.phoneNumber}
               />
               {errors.phoneNumber && (
                 <Text style={{fontSize: 10, color: 'red'}}>
@@ -85,14 +82,18 @@ const SignIn = ({navigation}) => {
                 value={values.mpin}
                 keyboardType="number-pad"
               />
-               {errors.mpin && (
+              {errors.mpin && (
                 <Text style={{fontSize: 10, color: 'red'}}>{errors.mpin}</Text>
               )}
             </View>
             <Pressable>
-            <Text style={styles.forgotText}>Forgot your passsword?</Text>
+              <Text style={styles.forgotText}>Forgot your passsword?</Text>
             </Pressable>
-            <ButtonField text="SIGN IN" onPress={handleSubmit} disabled={!isValid}/>
+            <ButtonField
+              text="SIGN IN"
+              onPress={handleSubmit}
+              disabled={!isValid}
+            />
 
             <View style={styles.fingerprintContainer}>
               <Image
