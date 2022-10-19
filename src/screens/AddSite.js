@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {SafeAreaView, View, StyleSheet, ScrollView} from 'react-native';
 import {CustomPassInput} from '../components/InputField';
 import {CustomInput} from '../components/InputField';
