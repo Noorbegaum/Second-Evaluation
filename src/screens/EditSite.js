@@ -6,18 +6,21 @@ import {CustomInput} from '../components/InputField';
 import {CustomMultilineInput} from '../components/InputField';
 import {Formik} from 'formik';
 import {edit} from '../redux/ManagerSlice';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {useRoute} from '@react-navigation/native';
 
 const EditSite = ({navigation}) => {
   const route = useRoute();
-  const data = route.params.siteDetails;
+
   const source = require('../assets/images/Bitmap.png');
   const dispatch = useDispatch();
+  const siteid = route.params.siteDetails.id;
+
   return (
     <SafeAreaView style={styles.container}>
       <Formik
         initialValues={{
+          
           url: route.params.siteDetails.url,
           sitename: route.params.siteDetails.sitename,
           folder: route.params.siteDetails.folder,
@@ -27,7 +30,17 @@ const EditSite = ({navigation}) => {
           source: source,
         }}
         onSubmit={async values => {
-          dispatch(edit(values));
+          const obj={
+            id:siteid,
+            url: values.url,
+            sitename: values.sitename,
+            folder: values.folder,
+            username: values.username,
+            password: values.password,
+            notes: values.notes,
+            source: source,
+          }
+          dispatch(edit(obj));
           navigation.navigate('AppScreen');
         }}>
         {({handleChange, handleBlur, handleSubmit, values}) => (

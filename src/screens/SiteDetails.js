@@ -25,24 +25,6 @@ const AddSite = ({navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.topbar}>
-        <Icon
-          name="arrowleft"
-          size={25}
-          color="white"
-          style={styles.icon}
-          onPress={() => {
-            navigation.navigate('AppScreen', {siteDetails});
-          }}
-        />
-        <Text style={styles.text2}> Site Details</Text>
-        <Pressable
-          onPress={() => {
-            navigation.navigate('Edit Site', {siteDetails});
-          }}>
-          <Text style={styles.text3}>Edit</Text>
-        </Pressable>
-      </View>
       <Formik
         initialValues={{
           url: '',
@@ -54,6 +36,7 @@ const AddSite = ({navigation}) => {
           source: source,
         }}
         onSubmit={async values => {
+          console.log(siteDetails.id);
           dispatch(add(values));
           console.log(values);
           try {
@@ -68,6 +51,25 @@ const AddSite = ({navigation}) => {
         }}>
         {({handleChange, handleBlur, values}) => (
           <>
+            <View style={styles.topbar}>
+              <Icon
+                name="arrowleft"
+                size={25}
+                color="white"
+                style={styles.icon}
+                onPress={() => {
+                  navigation.navigate('AppScreen', {siteDetails});
+                }}
+              />
+              <Text style={styles.text2}> Site Details</Text>
+              <Pressable
+                onPress={() => {
+                  console.log(siteDetails.id);
+                  navigation.navigate('Edit Site', {siteDetails});
+                }}>
+                <Text style={styles.text3}>Edit</Text>
+              </Pressable>
+            </View>
             <ScrollView>
               <CustomInput
                 text="URL"

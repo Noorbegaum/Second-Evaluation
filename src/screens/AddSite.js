@@ -6,13 +6,14 @@ import {CustomMultilineInput} from '../components/InputField';
 import {CustomButtonField} from '../components/ButtonField';
 import {Formik} from 'formik';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {add} from '../redux/ManagerSlice';
 import Toast from 'react-native-simple-toast';
 
 const AddSite = ({navigation}) => {
   const source = require('../assets/images/Bitmap.png');
   const dispatch = useDispatch();
+  const data = useSelector(state=>state.sitedata.value)
 
   const handleReset = () => {};
   return (
@@ -28,7 +29,17 @@ const AddSite = ({navigation}) => {
           source: source,
         }}
         onSubmit={async values => {
-          dispatch(add(values));
+          const obj={
+            id:data.length+1,
+            url: values.url,
+            sitename: values.sitename,
+            folder: values.folder,
+            username: values.username,
+            password: values.password,
+            notes: values.notes,
+            source: source,
+          }
+          dispatch(add(obj));
           console.log(values);
           try {
             const jsonValue = JSON.stringify(values);

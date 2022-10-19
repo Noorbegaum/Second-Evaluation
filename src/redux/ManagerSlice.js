@@ -57,8 +57,11 @@ export const ManagerSlice = createSlice({
       state.value.push(action.payload);
     },
     edit: (state, action) => {
+      // console.log("editttt",sitedata.sitename)
       state.value.map(sitedata => {
-        if (sitedata.id === action.payload.id) {
+          console.log("editttt",sitedata.id)
+          console.log("editttt action", action.payload.id)
+        if (sitedata.id=== action.payload.id) {
           sitedata.sitename = action.payload.sitename;
           sitedata.url = action.payload.url;
           sitedata.password = action.payload.password;
