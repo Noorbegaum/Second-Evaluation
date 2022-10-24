@@ -1,19 +1,20 @@
 import React from 'react';
-import { View, Text} from 'react-native';
-import SignIn from './src/screens/SignIn';
-import SignUp from './src/screens/SignUp';
-import AuthScreen from './src/screens/AuthScreen';
 import Router from './src/navigation/Router';
-import { store } from './src/redux/store';
+import store from './src/redux/store';
 import {Provider} from 'react-redux';
+import {PersistGate} from 'redux-persist/integration/react';
+import {persistStore} from 'redux-persist';
+
+let persistor = persistStore(store);
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Router />
-      </Provider>
+      <PersistGate persistor={persistor}>
+        <Router />
+      </PersistGate>
+    </Provider>
   );
 };
-
 
 export default App;

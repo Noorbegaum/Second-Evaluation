@@ -7,21 +7,21 @@ import {
   Text,
   Pressable,
 } from 'react-native';
-import {CustomPassInput} from '../components/InputField';
+import {CustomDropInput, CustomPassInput} from '../components/InputField';
 import {CustomInput} from '../components/InputField';
 import {CustomMultilineInput} from '../components/InputField';
 import {Formik} from 'formik';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {add} from '../redux/ManagerSlice';
 import {useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
+import DropdownField from '../components/DropdownField';
 
 const AddSite = ({navigation}) => {
   const route = useRoute();
   const source = require('../assets/images/Bitmap.png');
   const dispatch = useDispatch();
-  const [siteDetails, setSite] = useState(route.params.item);
+  const siteDetails=route.params.item;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -36,32 +36,33 @@ const AddSite = ({navigation}) => {
           source: source,
         }}
         onSubmit={async values => {
-          console.log(siteDetails.id);
           dispatch(add(values));
-          console.log(values);
-          try {
-            const jsonValue = JSON.stringify(values);
-            await AsyncStorage.setItem(values.url, jsonValue);
+          // console.log(values);
+          // try {
+          //   const jsonValue = JSON.stringify(values);
+          //   await AsyncStorage.setItem(values.url, jsonValue);
 
-            alert('Successfully Added');
-            navigation.navigate('AppScreen');
-          } catch (err) {
-            console.log(err);
-          }
+          //   alert('Successfully Added');
+          //   navigation.navigate('AppScreen');
+          // } catch (err) {
+          //   console.log(err);
+          // }
         }}>
         {({handleChange, handleBlur, values}) => (
           <>
             <View style={styles.topbar}>
+              <View style={styles.leftIcon}>
               <Icon
                 name="arrowleft"
                 size={25}
                 color="white"
                 style={styles.icon}
                 onPress={() => {
-                  navigation.navigate('AppScreen', {siteDetails});
+                  navigation.navigate('AppScreen');
                 }}
               />
               <Text style={styles.text2}> Site Details</Text>
+              </View>
               <Pressable
                 onPress={() => {
                   console.log(siteDetails.id);
@@ -70,7 +71,8 @@ const AddSite = ({navigation}) => {
                 <Text style={styles.text3}>Edit</Text>
               </Pressable>
             </View>
-            <ScrollView>
+
+            <ScrollView nestedScrollEnabled={true}>
               <CustomInput
                 text="URL"
                 multiline={false}
@@ -87,7 +89,7 @@ const AddSite = ({navigation}) => {
                 onBlur={handleBlur('sitename')}
                 value={route.params.item.sitename}
               />
-              <CustomPassInput
+              <CustomDropInput
                 text="Select/Folder"
                 source={require('../assets/images/PathCopy.png')}
                 name="folder"
@@ -132,13 +134,15 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
   },
+  leftIcon:{
+    flexDirection: 'row',
+  },
   text2: {
-    height: 28,
-    width: 103,
     fontSize: 20,
     marginTop: 20,
     marginLeft: 30,
     color: '#FFFFFF',
+    alignSelf:'flex-start',
   },
   text3: {
     height: 28,
@@ -152,6 +156,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#0E85FF',
     flexDirection: 'row',
     height: 60,
+    justifyContent:'space-between'
   },
   icon: {
     marginTop: 20,

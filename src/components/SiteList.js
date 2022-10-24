@@ -1,9 +1,20 @@
 import React from 'react';
-import {View, FlatList, StyleSheet, Text, Image, Pressable} from 'react-native';
-import {useSelector} from 'react-redux';
+import {
+  View,
+  FlatList,
+  StyleSheet,
+  Text,
+  Image,
+  Pressable,
+  ToastAndroid,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {deleteSite} from '../redux/ManagerSlice';
+import Toast from 'react-native-simple-toast';
 
 const SiteList = ({navigation}) => {
   const value = useSelector(state => state.sitedata.value);
+  const dispatch = useDispatch();
 
   return (
     <View style={styles.container}>
@@ -13,6 +24,10 @@ const SiteList = ({navigation}) => {
           <Pressable
             onPress={() => {
               navigation.navigate('Site Details', {item});
+            }}
+            onLongPress={() => {
+              dispatch(deleteSite({id: item.id}));
+              Toast.show(`Deleted ${item.sitename} Successfully`);
             }}>
             <View style={styles.itemContainer}>
               <View>

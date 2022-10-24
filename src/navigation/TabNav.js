@@ -15,12 +15,8 @@ const TabNav = () => {
         },
         tabBarIndicatorStyle: {
           backgroundColor: '#FFA222',
-          marginLeft: 55,
-          width: 86,
           height: 4,
           borderRadius: 3.5,
-          marginVertical: -3,
-          borderRadius: 1,
           borderColor: 'black',
         },
         tabBarLabelStyle: {

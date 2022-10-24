@@ -29,7 +29,7 @@ const initialState = [
     key: 'Twitter',
     source: require('../assets/images/Twitter.png'),
     url: 'www.twitter.com',
-    notes: 'Facebook Notes',
+    notes: 'Twitter Notes',
     username: 'xyz',
     password: '12345',
     folder: 'Social Media',
@@ -51,14 +51,20 @@ export const ManagerSlice = createSlice({
   name: 'sitedata',
   initialState: {
     value: initialState,
+    filterValue: initialState,
   },
   reducers: {
     add: (state, action) => {
       state.value.push(action.payload);
+      state.filterValue.push(action.payload);
+    },
+    deleteSite: (state, action) => {
+      state.value = state.value.filter(sitedata => sitedata.id !== action.payload.id);
+      state.value = state.filterValue.filter(sitedata => sitedata.id !== action.payload.id);
     },
     edit: (state, action) => {
       state.value.map(sitedata => {
-        if (sitedata.id=== action.payload.id) {
+        if (sitedata.id === action.payload.id) {
           sitedata.sitename = action.payload.sitename;
           sitedata.url = action.payload.url;
           sitedata.password = action.payload.password;
@@ -68,9 +74,15 @@ export const ManagerSlice = createSlice({
         }
       });
     },
+    filter: (state, action) => {
+      state.value = state.filterValue.filter(site =>
+        site.sitename.toLowerCase().includes(action.payload.toLowerCase()),
+      );
+    },
+
   },
 });
 
-export const {add, edit} = ManagerSlice.actions;
+export const {add, edit,filter,deleteSite} = ManagerSlice.actions;
 
 export default ManagerSlice.reducer;

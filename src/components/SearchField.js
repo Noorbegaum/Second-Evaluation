@@ -1,10 +1,15 @@
 import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-const SearchField = () => {
+const SearchField = ({onChangeText,placeholder,placeholderTextColor}) => {
   return (
     <View style={styles.SectionStyle}>
-      <TextInput placeholder="Type Keywords to search"></TextInput>
+      <TextInput
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        style={styles.text}
+        placeholderTextColor="grey"
+      />
       <Icon name="arrow-right" size={25} color="#0E85FF" />
     </View>
   );
@@ -18,11 +23,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     height: 55,
-    width: 390,
+    color:"black",
     borderRadius: 4,
     justifyContent: 'space-between',
     fontWeight: 'bold',
-    padding: 10,
+    paddingHorizontal: 10,
     marginVertical: 20,
   },
+  text:{
+    color:"black",
+    fontSize: 18,
+  }
 });

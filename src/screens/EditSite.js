@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {SafeAreaView, View, StyleSheet, ScrollView} from 'react-native';
 import {UpdateButtonField} from '../components/ButtonField';
 import {CustomPassInput} from '../components/InputField';
@@ -8,6 +8,8 @@ import {Formik} from 'formik';
 import {edit} from '../redux/ManagerSlice';
 import {useDispatch} from 'react-redux';
 import {useRoute} from '@react-navigation/native';
+import DropdownField from '../components/DropdownField';
+import * as yup from 'yup';
 
 const EditSite = ({navigation}) => {
   const route = useRoute();
@@ -15,10 +17,23 @@ const EditSite = ({navigation}) => {
   const source = require('../assets/images/Bitmap.png');
   const dispatch = useDispatch();
   const siteid = route.params.siteDetails.id;
+  const [selected, setSelected] = useState(' ');
+  const data = [
+    {key: 'Social Media', value: 'Social Media'},
+    {key: 'Shopping Sites', value: 'Shopping Sites'},
+  ];
 
+  const signupValidationSchema = yup.object().shape({
+    url: yup.string().required(),
+    sitename: yup.string().required(),
+    username: yup.string().required(),
+    password: yup.string().required(),
+    notes: yup.string().required(),
+  });
   return (
     <SafeAreaView style={styles.container}>
       <Formik
+      validationSchema={signupValidationSchema}
         initialValues={{
           url: route.params.siteDetails.url,
           sitename: route.params.siteDetails.sitename,
@@ -33,7 +48,7 @@ const EditSite = ({navigation}) => {
             id: siteid,
             url: values.url,
             sitename: values.sitename,
-            folder: values.folder,
+            folder: selected,
             username: values.username,
             password: values.password,
             notes: values.notes,
@@ -61,13 +76,15 @@ const EditSite = ({navigation}) => {
                 onBlur={handleBlur('sitename')}
                 value={values.sitename}
               />
-              <CustomPassInput
-                text="Select/Folder"
-                source={require('../assets/images/PathCopy.png')}
+              <DropdownField
+                text="folder"
                 name="folder"
                 onChangeText={handleChange('folder')}
                 onBlur={handleBlur('folder')}
-                value={values.folder}
+                data={data}
+                value={selected}
+                style={styles.dropdown}
+                setSelected={setSelected}
               />
               <CustomInput
                 text="User Name"
@@ -85,7 +102,11 @@ const EditSite = ({navigation}) => {
                 onBlur={handleBlur('password')}
                 value={values.password}
               />
-              <CustomMultilineInput text="Notes" multiline={true} />
+              <CustomMultilineInput
+                text="Notes"
+                multiline={true}
+                value={values.notes}
+              />
             </ScrollView>
             <View style={styles.buttonContainer}>
               <UpdateButtonField text="Update" onPress={handleSubmit} />

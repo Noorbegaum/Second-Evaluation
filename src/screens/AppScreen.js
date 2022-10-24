@@ -10,10 +10,12 @@ import SiteList from '../components/SiteList';
 import SubHeaderField from '../components/SubHeaderField';
 import Header from '../components/Header';
 import SearchField from '../components/SearchField';
+import {useDispatch} from 'react-redux';
+import {filter} from '../redux/ManagerSlice';
 
 const AppScreen = ({navigation}) => {
   const [clicked, setClicked] = useState(false);
-
+  const dispatch = useDispatch();
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar
@@ -22,7 +24,11 @@ const AppScreen = ({navigation}) => {
         backgroundColor="#0E85FF"
       />
       <Header onPress={() => setClicked(!clicked)} />
-      {clicked ? <SearchField /> : <SubHeaderField />}
+      {clicked ? (
+        <SearchField placeholder="Type Keywords to search" onChangeText={text => dispatch(filter(text))} />
+      ) : (
+        <SubHeaderField />
+      )}
       <SiteList navigation={navigation} />
       <TouchableOpacity
         title="add"

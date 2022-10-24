@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, ScrollView} from 'react-native';
 import {InputField} from '../components/InputField';
 import {PasswordInput} from '../components/InputField';
 import {ButtonField} from '../components/ButtonField';
@@ -31,11 +31,12 @@ const SignUp = ({navigation}) => {
       <Formik
         validationSchema={signupValidationSchema}
         initialValues={{phoneNumber: '', mpin: '', conformmpin: ''}}
-        onSubmit={async values => {
+        onSubmit={async (values,{resetForm}) => {
           try {
             const jsonValue = JSON.stringify(values);
             await AsyncStorage.setItem(values.phoneNumber, jsonValue);
             Toast.show(`Congrats!!! Success \n Signin to access the vault `);
+            resetForm({initialValues:' '})
             navigation.navigate('Sign In');
           } catch (err) {
             console.log(err);
@@ -50,6 +51,7 @@ const SignUp = ({navigation}) => {
           isValid,
         }) => (
           <>
+          <ScrollView>
             <View style={styles.inputContainer}>
               <InputField
                 name="phoneNumber"
@@ -95,11 +97,14 @@ const SignUp = ({navigation}) => {
                 </Text>
               )}
             </View>
+            <View style={styles.secondContainer}>
             <ButtonField
               text="SIGN IN"
               onPress={handleSubmit}
               disabled={!isValid}
             />
+            </View>
+            </ScrollView>
           </>
         )}
       </Formik>
@@ -116,6 +121,11 @@ const styles = StyleSheet.create({
     height: 296,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  secondContainer:{
+    width:'85%',
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
 });
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
+import {View, Text, StyleSheet, Image, Pressable, ScrollView} from 'react-native';
 import {InputField} from '../components/InputField';
 import {PasswordInput} from '../components/InputField';
 import {ButtonField} from '../components/ButtonField';
@@ -57,7 +57,9 @@ const SignIn = ({navigation}) => {
           isValid,
         }) => (
           <>
+             <ScrollView>
             <View style={styles.inputContainer}>
+           
               <InputField
                 name="phoneNumber"
                 placeholder="Mobile Number"
@@ -86,6 +88,8 @@ const SignIn = ({navigation}) => {
                 <Text style={{fontSize: 10, color: 'red'}}>{errors.mpin}</Text>
               )}
             </View>
+
+            <View style={styles.secondContainer}>
             <Pressable>
               <Text style={styles.forgotText}>Forgot your passsword?</Text>
             </Pressable>
@@ -94,6 +98,7 @@ const SignIn = ({navigation}) => {
               onPress={handleSubmit}
               disabled={!isValid}
             />
+            </View>
 
             <View style={styles.fingerprintContainer}>
               <Image
@@ -104,7 +109,9 @@ const SignIn = ({navigation}) => {
                 <Text style={styles.orText}>OR </Text>
                 <Text> USE YOUR FINGERPRINT TO LOGIN</Text>
               </Text>
+            
             </View>
+            </ScrollView>
           </>
         )}
       </Formik>
@@ -122,8 +129,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  secondContainer:{
+    width:'85%',
+    alignSelf: 'center',
+    justifyContent: 'center',
+  },
   forgotText: {
-    paddingStart: 35,
+    alignSelf:'flex-start',
     fontWeight: 'bold',
     color: 'white',
     fontSize: 13,

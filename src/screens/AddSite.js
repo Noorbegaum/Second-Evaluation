@@ -1,24 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {SafeAreaView, View, StyleSheet, ScrollView} from 'react-native';
-import {CustomPassInput} from '../components/InputField';
+import {CustomDropInput, CustomPassInput} from '../components/InputField';
 import {CustomInput} from '../components/InputField';
 import {CustomMultilineInput} from '../components/InputField';
 import {CustomButtonField} from '../components/ButtonField';
 import {Formik} from 'formik';
+import * as yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch, useSelector} from 'react-redux';
 import {add} from '../redux/ManagerSlice';
 import Toast from 'react-native-simple-toast';
+import DropdownField from '../components/DropdownField';
+
+
 
 const AddSite = ({navigation}) => {
   const source = require('../assets/images/Bitmap.png');
   const dispatch = useDispatch();
-  const data = useSelector(state=>state.sitedata.value)
+  const data = useSelector(state => state.sitedata.value);
+  const [selected, setSelected] = useState(' ');
 
-  const handleReset = () => {};
+
+  const dropdownData = [
+    {key: 'Social Media', value: 'Social Media'},
+    {key: 'Shopping Sites', value: 'Shopping Sites'},
+  ];
+
+
+  const signupValidationSchema = yup.object().shape({
+    url: yup.string().required(),
+    sitename: yup.string().required(),
+    username: yup.string().required(),
+    password: yup.string().required(),
+    notes: yup.string().required(),
+  });
+
   return (
     <SafeAreaView style={styles.container}>
       <Formik
+        validationSchema={signupValidationSchema}
         initialValues={{
           url: '',
           sitename: '',
@@ -29,16 +49,16 @@ const AddSite = ({navigation}) => {
           source: source,
         }}
         onSubmit={async values => {
-          const obj={
-            id:data.length+1,
+          const obj = {
+            id: data.length + 1,
             url: values.url,
             sitename: values.sitename,
-            folder: values.folder,
+            folder: selected,
             username: values.username,
             password: values.password,
             notes: values.notes,
             source: source,
-          }
+          };
           dispatch(add(obj));
           console.log(values);
           try {
@@ -51,7 +71,7 @@ const AddSite = ({navigation}) => {
             console.log(err);
           }
         }}>
-        {({handleChange, handleBlur, handleSubmit, values}) => (
+        {({handleChange, handleBlur, handleSubmit, values,resetForm}) => (
           <>
             <ScrollView>
               <CustomInput
@@ -70,13 +90,14 @@ const AddSite = ({navigation}) => {
                 onBlur={handleBlur('sitename')}
                 value={values.sitename}
               />
-              <CustomPassInput
-                text="Select/Folder"
-                source={require('../assets/images/PathCopy.png')}
+              <DropdownField
+                text="folder"
                 name="folder"
                 onChangeText={handleChange('folder')}
                 onBlur={handleBlur('folder')}
-                value={values.folder}
+                data={dropdownData}
+                value={selected}
+                setSelected={setSelected}
               />
               <CustomInput
                 text="User Name"
@@ -94,10 +115,18 @@ const AddSite = ({navigation}) => {
                 onBlur={handleBlur('password')}
                 value={values.password}
               />
-              <CustomMultilineInput text="Notes" multiline={true} />
+              <CustomMultilineInput
+                text="Notes"
+                multiline={true}
+                value={values.notes}
+                onChangeText={handleChange('notes')}
+              />
+
+ 
+    
             </ScrollView>
             <View style={styles.buttonContainer}>
-              <CustomButtonField text="Reset" onPress={handleReset} />
+              <CustomButtonField text="Reset" onPress={resetForm} />
               <CustomButtonField text="Save" onPress={handleSubmit} />
             </View>
           </>
@@ -115,6 +144,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: 'row',
   },
+  passInput:{
+    flexDirection: 'row',
+    backgroundColor: '#F5F7FB',
+    alignItems: 'center',
+    alignSelf: 'center',
+    height: 54,
+    width: '85%',
+    paddingHorizontal: 20,
+    borderWidth: 0.5,
+    borderColor: '#D7D7D7',
+    borderRadius: 5,
+    margin: 15,
+  }
 });
 
 export default AddSite;
