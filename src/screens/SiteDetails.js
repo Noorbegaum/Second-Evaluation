@@ -36,16 +36,6 @@ const AddSite = ({navigation}) => {
         }}
         onSubmit={async values => {
           dispatch(add(values));
-          // console.log(values);
-          // try {
-          //   const jsonValue = JSON.stringify(values);
-          //   await AsyncStorage.setItem(values.url, jsonValue);
-
-          //   alert('Successfully Added');
-          //   navigation.navigate('AppScreen');
-          // } catch (err) {
-          //   console.log(err);
-          // }
         }}>
         {({handleChange, handleBlur, values}) => (
           <>
@@ -64,7 +54,6 @@ const AddSite = ({navigation}) => {
               </View>
               <Pressable
                 onPress={() => {
-                  console.log(siteDetails.id);
                   navigation.navigate('Edit Site', {siteDetails});
                 }}>
                 <Text style={styles.text3}>Edit</Text>

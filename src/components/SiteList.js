@@ -1,19 +1,12 @@
 import React from 'react';
-import {
-  View,
-  FlatList,
-  StyleSheet,
-  Text,
-  Image,
-  Pressable,
-} from 'react-native';
+import {View, FlatList, StyleSheet, Text, Image, Pressable} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteSite} from '../redux/ManagerSlice';
 import Toast from 'react-native-simple-toast';
+import Icon from 'react-native-vector-icons/Feather';
 
 const SiteList = ({navigation}) => {
   const value = useSelector(state => state.sitedata.value);
-  console.log(value)
   const dispatch = useDispatch();
 
   return (
@@ -21,34 +14,40 @@ const SiteList = ({navigation}) => {
       <FlatList
         data={value}
         renderItem={({item}) => (
-          console.log(value.id),
-          <Pressable
-            onPress={() => {
-              navigation.navigate('Site Details', {item});
-            }}
-            onLongPress={() => {
-              dispatch(deleteSite({id: item.id}));
-              Toast.show(`Deleted ${item.sitename} Successfully`);
-            }}>
-            <View style={styles.itemContainer}>
-              <View>
-                <View style={styles.topItem}>
-                  <Image source={item.source}></Image>
-                  <View>
-                    <Text style={styles.socialText}>{item.sitename}</Text>
+          (
+            <Pressable
+              onPress={() => {
+                navigation.navigate('Site Details', {item});
+              }}
+              onLongPress={() => {
+                dispatch(deleteSite({id: item.id}));
+                Toast.show(`Deleted ${item.sitename} Successfully`);
+              }}>
+              <View style={styles.itemContainer}>
+                <View>
+                  <View style={styles.topItem}>
+                    <Image source={item.source}></Image>
                     <View>
-                      <Text style={styles.copyText}>Copy Password</Text>
+                      <Text style={styles.socialText}>{item.sitename}</Text>
+                      <View>
+                        <Text style={styles.copyText}>
+                          {' '}
+                          <Icon name="copy" size={15}/>
+                          {` Copy Password`}
+                        </Text>
+                      </View>
                     </View>
                   </View>
-                </View>
 
-                <View style={styles.bottomItem}>
-                  <Text style={styles.link}>{item.url}</Text>
+                  <View style={styles.bottomItem}>
+                    <Text style={styles.link}>{item.url}</Text>
+                  </View>
                 </View>
               </View>
-            </View>
-          </Pressable>
+            </Pressable>
+          )
         )}
+        keyExtractor={(item) => item.id}
       />
     </View>
   );

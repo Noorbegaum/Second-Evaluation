@@ -17,7 +17,6 @@ const SubHeaderField = () => {
   };
 
   const handlePress = data => {
-    console.log(data);
     setItem(data);
   
     setVisible(!visible);
@@ -30,7 +29,7 @@ const SubHeaderField = () => {
       return (
         <View style={styles.dropdownView}>
           {sitesData.map(data => (
-            <TouchableOpacity onPress={() => handlePress(data)}>
+            <TouchableOpacity onPress={() => handlePress(data)} key={data}>
               <Text style={styles.dropdownText}>{data}</Text>
             </TouchableOpacity>
           ))}

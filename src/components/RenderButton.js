@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Pressable, Image} from 'react-native';
 
 const RenderButton = props => {
-  console.log(props.onPress);
+
   return (
     <Pressable onPress={props.onPress}>
       <Image

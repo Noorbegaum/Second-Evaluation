@@ -60,7 +60,7 @@ const AddSite = ({navigation}) => {
             source: source,
           };
           dispatch(add(obj));
-          console.log(values);
+       
           try {
             const jsonValue = JSON.stringify(values);
             await AsyncStorage.setItem('values.url', jsonValue);

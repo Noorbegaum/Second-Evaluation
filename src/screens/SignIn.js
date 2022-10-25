@@ -28,7 +28,7 @@ const SignIn = ({navigation}) => {
         validationSchema={signinValidationSchema}
         initialValues={{phoneNumber: '', mpin: ''}}
         onSubmit={async (values,{resetForm}) => {
-          console.log(values);
+
           try {
             const jsonValue = await AsyncStorage.getItem(values.phoneNumber);
             if (jsonValue != null) {
