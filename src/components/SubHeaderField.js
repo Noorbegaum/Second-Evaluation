@@ -1,31 +1,37 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import { filterSite } from '../redux/ManagerSlice';
+
 
 const SubHeaderField = () => {
   const [item, setItem] = useState('All');
   const [visible, setVisible] = useState(false);
-  const sitesData = [
-    {key:1,value:'All'}, 
-    {key:2,value:'Social Media'}, 
-    {key:3,value:'Shopping Site'}, 
-    {key:4,value:'Video Streaming'}];
+  const dispatch = useDispatch();
+  const data = useSelector(state => state.sitedata.value);
+  
+  const sitesData = ['All','Social Media','Shopping Site'];
 
   const toggleDropdown = () => {
     setVisible(!visible);
   };
 
-  const handlePress = (data) => {
-    console.log(data)
-    setItem(data)
+  const handlePress = data => {
+    console.log(data);
+    setItem(data);
+  
+    setVisible(!visible);
+    dispatch(filterSite(data))
+
   };
 
   const renderDropdown = () => {
     if (visible) {
       return (
         <View style={styles.dropdownView}>
-          {sitesData.map((data) => (
-            <TouchableOpacity onPress={()=>handlePress(data.value)}>
-              <Text style={styles.dropdownText}>{data.value}</Text>
+          {sitesData.map(data => (
+            <TouchableOpacity onPress={() => handlePress(data)}>
+              <Text style={styles.dropdownText}>{data}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -43,7 +49,7 @@ const SubHeaderField = () => {
         <View style={styles.rightsubHeader}>
           <Text style={styles.socialMedia}>{item}</Text>
           <View style={styles.oval}>
-            <Text style={styles.number}>07</Text>
+            <Text style={styles.number}>0{data.length}</Text>
           </View>
           <TouchableOpacity
             onPress={toggleDropdown}
@@ -122,12 +128,19 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginEnd: 20,
     marginBottom: 20,
-    borderRadius: 5,
+    // borderRadius: 10,
     borderColor: '#D7D7D7',
+    backgroundColor:'#F4F4F4',
+    marginTop:-20,
   },
   dropdownText: {
+    // borderRadius: 10,
     borderWidth: 0.2,
+    borderColor: '#D7D7D7',
     padding: 5,
+    color:'black',
+    fontSize:18,
+    borderBottomEndRadius:10
   },
 });
 

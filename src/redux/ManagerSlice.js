@@ -59,8 +59,10 @@ export const ManagerSlice = createSlice({
       state.filterValue.push(action.payload);
     },
     deleteSite: (state, action) => {
-      state.value = state.value.filter(sitedata => sitedata.id !== action.payload.id);
-      state.value = state.filterValue.filter(sitedata => sitedata.id !== action.payload.id);
+      state.value = state.value.filter(
+        sitedata => sitedata.id !== action.payload.id,
+      );
+      state.filterValue = state.value;
     },
     edit: (state, action) => {
       state.value.map(sitedata => {
@@ -80,9 +82,18 @@ export const ManagerSlice = createSlice({
       );
     },
 
+    filterSite: (state, action) => {
+      if (action.payload == 'All') {
+        state.value = state.filterValue;
+      } else {
+        state.value = state.filterValue.filter(site =>
+          site.folder.toLowerCase().includes(action.payload.toLowerCase()),
+        );
+      }
+    },
   },
 });
 
-export const {add, edit,filter,deleteSite} = ManagerSlice.actions;
+export const {add, edit, filter, deleteSite, filterSite} = ManagerSlice.actions;
 
 export default ManagerSlice.reducer;

@@ -23,7 +23,7 @@ const DropdownField = (props) => {
           alignItems: 'center',
           paddingHorizontal: 20,
           alignSelf: 'center',
-          backgroundColor: '#F5F7FB',
+          backgroundColor: 'ç',
           borderWidth: 0.5,
           borderColor: '#D7D7D7',
           borderRadius: 5,

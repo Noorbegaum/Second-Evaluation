@@ -27,7 +27,7 @@ const SignIn = ({navigation}) => {
       <Formik
         validationSchema={signinValidationSchema}
         initialValues={{phoneNumber: '', mpin: ''}}
-        onSubmit={async values => {
+        onSubmit={async (values,{resetForm}) => {
           console.log(values);
           try {
             const jsonValue = await AsyncStorage.getItem(values.phoneNumber);
@@ -39,6 +39,7 @@ const SignIn = ({navigation}) => {
                 values.mpin === parseValue.mpin
               ) {
                 Toast.show('Successfully Logged In');
+                resetForm({initialValues:' '})
                 navigation.navigate('AppScreen');
               } else {
                 Toast.show('Enter Correct Mobile Number and MPin');
