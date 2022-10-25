@@ -6,7 +6,6 @@ import {
   Text,
   Image,
   Pressable,
-  ToastAndroid,
 } from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteSite} from '../redux/ManagerSlice';
@@ -14,6 +13,7 @@ import Toast from 'react-native-simple-toast';
 
 const SiteList = ({navigation}) => {
   const value = useSelector(state => state.sitedata.value);
+  console.log(value)
   const dispatch = useDispatch();
 
   return (
@@ -21,6 +21,7 @@ const SiteList = ({navigation}) => {
       <FlatList
         data={value}
         renderItem={({item}) => (
+          console.log(value.id),
           <Pressable
             onPress={() => {
               navigation.navigate('Site Details', {item});

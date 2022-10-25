@@ -1,23 +1,61 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 
 const SubHeaderField = () => {
-  return (
-    <View style={styles.subHeader}>
-      <View>
-        <Text style={styles.sites}>Sites</Text>
-        <View style={styles.borderBottom}></View>
-      </View>
-      <View style={styles.rightsubHeader}>
-        <Text style={styles.socialMedia}>Social Media</Text>
-        <View style={styles.oval}>
-          <Text style={styles.number}>07</Text>
+  const [item, setItem] = useState('All');
+  const [visible, setVisible] = useState(false);
+  const sitesData = [
+    {key:1,value:'All'}, 
+    {key:2,value:'Social Media'}, 
+    {key:3,value:'Shopping Site'}, 
+    {key:4,value:'Video Streaming'}];
+
+  const toggleDropdown = () => {
+    setVisible(!visible);
+  };
+
+  const handlePress = (data) => {
+    console.log(data)
+    setItem(data)
+  };
+
+  const renderDropdown = () => {
+    if (visible) {
+      return (
+        <View style={styles.dropdownView}>
+          {sitesData.map((data) => (
+            <TouchableOpacity onPress={()=>handlePress(data.value)}>
+              <Text style={styles.dropdownText}>{data.value}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
-        <Image
-          source={require('../assets/images/PathCopy.png')}
-          style={styles.dropdown}
-        />
+      );
+    }
+  };
+
+  return (
+    <View>
+      <View style={styles.subHeader}>
+        <View>
+          <Text style={styles.sites}>Sites</Text>
+          <View style={styles.borderBottom}></View>
+        </View>
+        <View style={styles.rightsubHeader}>
+          <Text style={styles.socialMedia}>{item}</Text>
+          <View style={styles.oval}>
+            <Text style={styles.number}>07</Text>
+          </View>
+          <TouchableOpacity
+            onPress={toggleDropdown}
+            style={{flexDirection: 'column'}}>
+            <Image
+              source={require('../assets/images/PathCopy.png')}
+              style={styles.dropdown}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
+      {renderDropdown()}
     </View>
   );
 };
@@ -76,6 +114,20 @@ const styles = StyleSheet.create({
     height: 7.15,
     width: 11.2,
     margin: 10,
+  },
+  dropdownView: {
+    borderWidth: 1,
+    alignSelf: 'flex-end',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    marginEnd: 20,
+    marginBottom: 20,
+    borderRadius: 5,
+    borderColor: '#D7D7D7',
+  },
+  dropdownText: {
+    borderWidth: 0.2,
+    padding: 5,
   },
 });
 

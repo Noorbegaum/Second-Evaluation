@@ -15,7 +15,6 @@ import {useDispatch} from 'react-redux';
 import {add} from '../redux/ManagerSlice';
 import {useRoute} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import DropdownField from '../components/DropdownField';
 
 const AddSite = ({navigation}) => {
   const route = useRoute();
