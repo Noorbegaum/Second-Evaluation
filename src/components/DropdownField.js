@@ -16,7 +16,7 @@ const DropdownField = (props) => {
         data={props.data}
         setSelected={props.setSelected}
 
-        placeholder="Select Type"
+        placeholder={props.placeholder}
         boxStyles={{
           height: 55,
           width: '100%',

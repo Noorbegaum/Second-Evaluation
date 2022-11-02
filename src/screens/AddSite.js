@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {SafeAreaView, View, StyleSheet, ScrollView} from 'react-native';
 import {CustomDropInput, CustomPassInput} from '../components/InputField';
 import {CustomInput} from '../components/InputField';
@@ -11,15 +11,28 @@ import {useDispatch, useSelector} from 'react-redux';
 import {add} from '../redux/ManagerSlice';
 import Toast from 'react-native-simple-toast';
 import DropdownField from '../components/DropdownField';
+import uuid from 'react-native-uuid';
+
+const twitter = require('../assets/images/Twitter.png')
+const youtube = require('../assets/images/YouTube.png')
+const insta = require('../assets/images/Insta.png')
 
 
+const images = [twitter,youtube,insta]
 
 const AddSite = ({navigation}) => {
-  const source = require('../assets/images/Bitmap.png');
-  const dispatch = useDispatch();
-  const data = useSelector(state => state.sitedata.value);
-  const [selected, setSelected] = useState(' ');
 
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+   const changeImage = () => {
+    const randomNumber = Math.floor(Math.random() * images.length);
+    setCurrentImageIndex(randomNumber);
+  }
+  useEffect(() => changeImage(), [])
+  const source = images[currentImageIndex];
+
+  const dispatch = useDispatch();
+
+  const [selected, setSelected] = useState(' ');
 
   const dropdownData = [
     {key: 'Social Media', value: 'Social Media'},
@@ -34,7 +47,7 @@ const AddSite = ({navigation}) => {
     password: yup.string().required(),
     notes: yup.string().required(),
   });
-
+   
   return (
     <SafeAreaView style={styles.container}>
       <Formik
@@ -50,7 +63,7 @@ const AddSite = ({navigation}) => {
         }}
         onSubmit={async values => {
           const obj = {
-            id: data.length + 1,
+            id: uuid.v4(),
             url: values.url,
             sitename: values.sitename,
             folder: selected,

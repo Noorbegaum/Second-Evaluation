@@ -42,8 +42,8 @@ export const PasswordInput = props => {
       {/* <Image source={icon} /> */}
       <Icon
         name={icon}
-        size={20}
-        color="black"
+        size={18}
+        color="grey"
         onPress={() => {
           setSecureTextEntry(!secureTextEntry);
           secureTextEntry ? setIcon('eye-off') : setIcon('eye');
@@ -70,8 +70,8 @@ export const CustomPassInput = props => {
         />
         <Icon
           name={icon}
-          size={20}
-          color="black"
+          size={17}
+          color="grey"
           onPress={() => {
             setSecureTextEntry(!secureTextEntry);
             secureTextEntry ? setIcon('eye-off') : setIcon('eye');

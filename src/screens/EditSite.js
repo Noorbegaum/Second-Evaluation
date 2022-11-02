@@ -85,6 +85,7 @@ const EditSite = ({navigation}) => {
                 value={selected}
                 style={styles.dropdown}
                 setSelected={setSelected}
+                placeholder = {values.folder}
               />
               <CustomInput
                 text="User Name"
@@ -106,6 +107,7 @@ const EditSite = ({navigation}) => {
                 text="Notes"
                 multiline={true}
                 value={values.notes}
+                onChangeText={handleChange('notes')}
               />
             </ScrollView>
             <View style={styles.buttonContainer}>

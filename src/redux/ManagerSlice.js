@@ -62,7 +62,10 @@ export const ManagerSlice = createSlice({
       state.value = state.value.filter(
         sitedata => sitedata.id !== action.payload.id,
       );
-      state.filterValue = state.value;
+      state.filterValue = state.filterValue.filter(
+        sitedata => sitedata.id !== action.payload.id,
+      );
+      // state.filterValue = state.value;
     },
     edit: (state, action) => {
       state.value.map(sitedata => {

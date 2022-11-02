@@ -41,9 +41,10 @@ const SignIn = ({navigation}) => {
                 Toast.show('Successfully Logged In');
                 resetForm({initialValues:' '})
                 navigation.navigate('AppScreen');
-              } else {
-                Toast.show('Enter Correct Mobile Number and MPin');
               }
+            }
+            else {
+              Toast.show('Enter Correct Mobile Number and MPin');
             }
           } catch (err) {
             console.log(err);
