@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {View, FlatList, StyleSheet, Text, Image, Pressable, TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {deleteSite} from '../redux/ManagerSlice';
 import Toast from 'react-native-simple-toast';
 import Icon from 'react-native-vector-icons/Feather';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { getUserData } from '../redux/ManagerSlice';
 
 const SiteList = ({navigation}) => {
-  const value = useSelector(state => state.sitedata.value);
-  const dispatch = useDispatch();
 
+  const userId = useSelector(state => state.userId.userId);
+  const value = useSelector(state => state.sitedata.value);
 
   const copyToClipboard = (password) => {
     Clipboard.setString(password);
     Toast.show(`Copied`);
   };
+  useEffect(() => {
+    dispatch(getUserData(userId));
+  }, []);
+    const dispatch = useDispatch();
   return (
 
     

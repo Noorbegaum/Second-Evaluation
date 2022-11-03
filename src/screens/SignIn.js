@@ -8,7 +8,9 @@ import {Formik} from 'formik';
 import * as yup from 'yup';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Toast from 'react-native-simple-toast';
-
+import { assignUserId } from '../redux/UserIdSlice';
+import { useDispatch } from 'react-redux';
+import { changeUserState } from '../redux/UserStateSlice';
 const SignIn = ({navigation}) => {
   const signinValidationSchema = yup.object().shape({
     phoneNumber: yup
@@ -21,7 +23,7 @@ const SignIn = ({navigation}) => {
       .max(4, ({max}) => `mPin must be${max} of characters`)
       .required('MPin is required'),
   });
-
+const dispatch= useDispatch()
   return (
     <LinearGradient colors={['#20BBFF', '#0E85FF']} style={styles.container}>
       <Formik
@@ -33,14 +35,15 @@ const SignIn = ({navigation}) => {
             const jsonValue = await AsyncStorage.getItem(values.phoneNumber);
             if (jsonValue != null) {
               parseValue = JSON.parse(jsonValue);
-
+              dispatch(assignUserId(parseValue));
+              console.log(parseValue)
               if (
                 values.phoneNumber === parseValue.phoneNumber &&
                 values.mpin === parseValue.mpin
               ) {
                 Toast.show('Successfully Logged In');
                 resetForm({initialValues:' '})
-                navigation.navigate('AppScreen');
+                dispatch(changeUserState())
               }
             }
             else {

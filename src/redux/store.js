@@ -3,7 +3,9 @@ import {configureStore} from '@reduxjs/toolkit';
 import {persistReducer} from 'redux-persist';
 import {combineReducers} from '@reduxjs/toolkit';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import userIdReducer from './UserIdSlice';
+import userCountReducer from './UserCountSlice';
+import userStateReducer from './UserStateSlice'
 const persistConfig = {
   key: 'root',
   version: 1,
@@ -12,6 +14,9 @@ const persistConfig = {
 
 const reducer = combineReducers({
   sitedata: ManagerSlice,
+  userId: userIdReducer,
+  userCount: userCountReducer,
+  userState : userStateReducer,
 });
 
 const persistRed = persistReducer(persistConfig, reducer);

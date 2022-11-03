@@ -5,18 +5,22 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  Pressable,
 } from 'react-native';
-import ModalScreen from '../screens/ModalScreen';
 import Modal from 'react-native-modal';
+import { useDispatch } from 'react-redux';
+import { changeUserState } from '../redux/UserStateSlice';
 
 const Header = ({onPress}) => {
   const [modalVisible, setModalVisible] = useState(false);
 
+const handleLogout = ()=>{
+  dispatch(changeUserState())
+}
+
   const handleModal = () => {
     setModalVisible(!modalVisible);
   };
-
+const dispatch = useDispatch()
   return (
     <>
       <View style={styles.header}>
@@ -42,10 +46,12 @@ const Header = ({onPress}) => {
               style={styles.contentIcon}
             />
           </TouchableOpacity>
+          <TouchableOpacity onPress={handleLogout}>
           <Image
             source={require('../assets/images/profile.png')}
             style={styles.contentIcon}
           />
+          </TouchableOpacity>
         </View>
       </View>
 

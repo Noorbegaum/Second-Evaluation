@@ -1,7 +1,7 @@
 import React from 'react';
 import {TextInput, View, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
-const SearchField = ({onChangeText,placeholder,placeholderTextColor}) => {
+const SearchField = ({onChangeText,placeholder,placeholderTextColor,onPress}) => {
   return (
     <View style={styles.SectionStyle}>
       <TextInput
@@ -10,7 +10,7 @@ const SearchField = ({onChangeText,placeholder,placeholderTextColor}) => {
         style={styles.text}
         placeholderTextColor="grey"
       />
-      <Icon name="arrow-right" size={25} color="#0E85FF" />
+      <Icon name="arrow-right" size={25} color="#0E85FF" onPress={onPress}/>
     </View>
   );
 };

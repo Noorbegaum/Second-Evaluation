@@ -21,7 +21,7 @@ const insta = require('../assets/images/Insta.png')
 const images = [twitter,youtube,insta]
 
 const AddSite = ({navigation}) => {
-
+  const userId = useSelector(state => state.userId.userId)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
    const changeImage = () => {
     const randomNumber = Math.floor(Math.random() * images.length);
@@ -71,6 +71,7 @@ const AddSite = ({navigation}) => {
             password: values.password,
             notes: values.notes,
             source: source,
+            userId : userId,
           };
           dispatch(add(obj));
        

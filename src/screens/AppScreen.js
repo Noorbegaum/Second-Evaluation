@@ -15,6 +15,9 @@ import {filter} from '../redux/ManagerSlice';
 
 const AppScreen = ({navigation}) => {
   const [clicked, setClicked] = useState(false);
+  const handleBack =()=>{
+    setClicked(!clicked)
+  }
   const dispatch = useDispatch();
   return (
     <SafeAreaView style={styles.container}>
@@ -25,7 +28,7 @@ const AppScreen = ({navigation}) => {
       />
       <Header onPress={() => setClicked(!clicked)} />
       {clicked ? (
-        <SearchField placeholder="Type Keywords to search" onChangeText={text => dispatch(filter(text))} />
+        <SearchField placeholder="Type Keywords to search" onChangeText={text => dispatch(filter(text))} onPress={handleBack}/>
       ) : (
         <SubHeaderField />
       )}

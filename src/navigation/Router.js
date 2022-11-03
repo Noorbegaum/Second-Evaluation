@@ -8,18 +8,23 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import EditSite from '../screens/EditSite.js';
 import SiteDetails from '../screens/SiteDetails.js';
 import {StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 
 const Stack = createNativeStackNavigator();
 
 function Router() {
+  const state = useSelector(state => state.userState.userState);
   return (
     <NavigationContainer onReady={() => RNBootSplash.hide()}>
       <Stack.Navigator>
+        {!state ? (
         <Stack.Screen
           name="AuthScreen"
           options={{header: () => null}}
           component={AuthScreen}
         />
+        ) : (
+          <>
         <Stack.Screen
           name="AppScreen"
           component={AppScreen}
@@ -58,6 +63,8 @@ function Router() {
             headerShadowVisible: true,
           }}
         />
+        </>
+        ) }
       </Stack.Navigator>
     </NavigationContainer>
   );
